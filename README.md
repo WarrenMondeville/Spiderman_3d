@@ -1,49 +1,127 @@
-# 🕷️ 3D Spider-Man Game — Built with Opus 5.5
+# 🕷️ 3D 蜘蛛侠网页游戏
 
-A fully playable **3D Spider-Man-inspired web-swinging game built entirely in a single HTML file**, created with the help of **Opus 5.5**.
+一个**完全可玩的 3D 蜘蛛侠风格摆荡游戏**，最初由 **Opus 5.5** 辅助开发，整体塞进一个 HTML 文件里。后来为便于维护，拆分为多文件结构，但**运行时仍无需任何构建步骤**——直接用浏览器打开即可游玩。
 
-The project was developed in roughly **4 hours**, with Opus 5.5 handling the majority of the development process. The goal was to see how far an advanced AI model could push **game development, 3D graphics, physics, movement, and interactive gameplay** within a very limited amount of time.
+整个项目大约用时 **4 小时**，目的是验证「先进的 AI 模型在极短时间内能把游戏开发、3D 图形、物理、移动与交互玩法推到什么程度」。
 
-## 🚀 Highlights
+## ✨ 项目亮点
 
-* 🎮 Fully playable 3D game
-* 🕷️ Spider-Man-inspired movement and web swinging
-* 🌆 3D environment
-* 🕸️ Web-swinging mechanics
-* ⚡ Interactive gameplay
-* 📄 Entire game contained in **ONE HTML file**
-* 🤖 Built primarily with **Opus 5.5**
-* ⏱️ Approximately **4 hours** of development
-* 💻 Runs directly in the browser
+- 🎮 完整可玩的 3D 游戏
+- 🕷️ 蜘蛛侠风格的移动与蛛丝摆荡
+- 🌆 程序化生成的 3D 城市（楼体、窗户、砖石、玻璃全靠着色器绘制）
+- 🕸️ 蛛丝摆荡 / 抓取 / 俯冲等动作系统
+- ⚡ 可交互玩法（战斗、犯罪任务、照片模式、昼夜切换）
+- 💻 纯前端，浏览器直接运行，**无需打包、无需依赖安装**
+- 🤖 主要由 **Opus 5.5** 辅助开发
+- ⏱️ 开发时长约 **4 小时**
 
-## 🤯 The Experiment
+## 🧪 关于这个实验
 
-This project was created to test **how far AI-assisted game development can go**.
+本项目用来测试 **AI 辅助游戏开发能走多远**。
 
-Instead of building a traditional multi-file game project, the entire experience was intentionally kept inside a **single HTML file**. Despite that limitation, the result is a functional 3D game with movement, web swinging, an explorable environment, and interactive gameplay.
+与传统的多文件工程不同，最初整段体验被刻意塞进**一个 HTML 文件**里。即便有这种限制，成果依然是一个具备移动、摆荡、可探索环境与交互玩法的功能性 3D 游戏。它展示了 AI 辅助开发的演进速度——在极短时间里、用极简的开发环境就能完成这么多东西。
 
-The project demonstrates how quickly AI-assisted development is evolving and how much can be accomplished from a simple development setup in a surprisingly short amount of time.
+> **4 小时。**
+> **1 个 HTML 文件起步。**
+> **AI 辅助开发。**
+> **一个完整可玩的 3D 游戏。**
 
-> **4 hours.**
-> **1 HTML file.**
-> **AI-assisted development.**
-> **A fully playable 3D game.**
+> 说明：现在仓库已不再是单文件——为了可维护性，原 `spiderman.html` 被拆分为 `index.html` + `src/` 多模块（原单文件备份在 `spiderman.html.bak`）。拆分**不改变运行语义**，游戏依旧打开即玩。
 
-## ❤️ Credits
+## 🗂️ 项目结构
 
-**All credits go to `happy_cookie_34`** for the original project, concept, and work behind this game.
+```
+Spiderman_3d/
+├── index.html            # 入口：按序 <script src> 加载下列脚本，无构建步骤
+├── spiderman.html.bak    # 原始单文件版本备份
+├── vendor/
+│   └── three.js          # 内联的 Three.js 库（暴露全局 THREE）
+├── src/                  # 24 个游戏模块（按原 pNN_*.js 拆分）
+│   ├── core.js           # 命名空间、数学、RNG、噪声、输入
+│   ├── gfx.js            # 渲染器 + 后处理(bloom) + 昼夜
+│   ├── sky.js            # 天空 + PMREM 环境
+│   ├── citygen.js        # 城市程序化生成（网格/街区/区划/地标，纯数据）
+│   ├── facade.js         # 立面着色器（窗户/砖石/玻璃/尖顶）
+│   ├── citymesh.js       # 盒网格构建 + 高度图 + 碰撞世界
+│   ├── ground.js props.js traffic.js peds.js
+│   ├── body.js suit.js anim.js hero.js player.js
+│   ├── camera.js fx.js enemies.js combat.js crimes.js
+│   ├── hud.js flow.js tests.js main.js
+└── tools/                # 拆分与测试脚本
+    ├── split_project.py  # 从单文件拆出 three.js 与各模块
+    └── smoke_test.cjs    # 拼接并按序加载，校验全局符号是否齐备
+```
 
-This repository is shared as an AI/game-development experiment and demonstration.
+模块加载顺序即依赖顺序：`three.js → core → … → main`。
+
+## ▶️ 如何运行
+
+**方式一：直接打开（最简单）**
+浏览器打开 `index.html` 即可（纯 classic `<script>`，无 ES module / fetch，`file://` 协议可直接运行）。
+
+**方式二：本地服务器（最稳）**
+```
+cd Spiderman_3d
+python -m http.server 8000
+# 浏览器访问 http://localhost:8000/
+```
+
+游戏模式：`title（标题）→ play（游玩）→ pause（暂停）/ photo（照片）/ cine（过场）`。
+
+## 🎮 操作说明
+
+| 操作 | 按键 |
+| --- | --- |
+| 移动 | `W` `A` `S` `D` |
+| 视角 / 转向 | 鼠标 |
+| 蛛丝摆荡 | `左 Shift` 或 鼠标右键 |
+| 跳跃 | `空格` |
+| 攻击 | `J` 或 鼠标左键 |
+| 发射蛛网 | `E` / `K` |
+| 闪避 | `Q` / `Ctrl` / `L` |
+| 抓取（Zip） | `F` |
+| 俯冲 | `C` |
+| 治疗 | `H` |
+| 照片模式 | `P` |
+| 切换昼夜 | `T` |
+| 静音 | `M` |
+| 开始游戏（标题界面） | `Enter` / `空格` |
+
+## 🌐 URL 参数
+
+在地址后追加查询参数可调整运行表现：
+
+| 参数 | 说明 |
+| --- | --- |
+| `seed=` | 随机种子（默认 `1962`），改变城市与布局 |
+| `q=` | 画质等级 `0 / 1 / 2` |
+| `tod=` | 时间 / 昼夜 |
+| `shot=` | 截图模式 |
+| `test` | 运行内置测试（含 `fly` 自由视角） |
+| `dbg` | 调试信息 |
+
+示例：`index.html?seed=42&q=2&tod=1`
+
+## 🔧 技术要点
+
+- **渲染**：Three.js（内联于 `vendor/three.js`）+ 手写 GLSL。整座城市由轴对齐盒子（`tiers`）组成；窗户、砖石、玻璃幕墙、尖顶全部由一个**立面着色器**（`facade.js`）按每顶点属性（`aFacade` / `aExtra` / 顶点色）实时绘制，几何只有盒子。
+- **城市生成**：`citygen.js` 程序化生成街区网格、区划、公园与地标（如 IMPERIAL STATE TOWER、CROWN TOWER、MERIDIAN ONE、NOVACORP、THE DAILY BUGLE），产出纯数据供下游使用。
+- **碰撞**：`World` 用空间哈希组织 AABB，支撑摆荡、射线、落地与球体碰撞。
+- **零构建**：全部为经典 `<script>` 标签，跨文件共享全局词法环境，不需要打包器或 npm 安装。
+
+## ❤️ 致谢
+
+**全部功劳归于 `happy_cookie_34`**——本游戏最初的创意、概念与原始工程均来自 TA。
+
+本仓库作为 AI / 游戏开发的实验与演示分享。
 
 ---
 
-### 🛠️ Built With
+### 🛠️ 技术栈
 
-* **HTML**
-* **JavaScript**
-* **Web-based 3D technologies**
-* **Opus 5.5**
+- **HTML**
+- **JavaScript**
+- **Web 3D（Three.js）**
+- **Opus 5.5**
 
-### ⭐ If you find this project interesting
-
-Feel free to ⭐ the repository and check out how far a single HTML file can be pushed when combined with modern AI-assisted development.
+如果觉得这个项目有意思，欢迎 ⭐ 收藏，亲自看看：结合现代 AI 辅助开发，一个 HTML 游戏到底能被推到什么程度。

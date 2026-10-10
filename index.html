@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<!-- Meta Pixel Code (only runs on createwithmark.co, so downloaded copies stay silent) -->
+<script>
+if (/(^|\.)createwithmark\.co$/.test(location.hostname)) {
+!function(f,b,e,v,n,t,s)
+{if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+n.queue=[];t=b.createElement(e);t.async=!0;
+t.src=v;s=b.getElementsByTagName(e)[0];
+s.parentNode.insertBefore(t,s)}(window, document,'script',
+'https://connect.facebook.net/en_US/fbevents.js');
+fbq('init', '4616630581994402');
+fbq('track', 'PageView');
+}
+</script>
+<noscript><img height="1" width="1" style="display:none" alt=""
+src="https://www.facebook.com/tr?id=4616630581994402&ev=PageView&noscript=1"
+/></noscript>
+<!-- End Meta Pixel Code -->
+<!-- Vercel Web Analytics (only on createwithmark.co) -->
+<script>
+if (/(^|\.)createwithmark\.co$/.test(location.hostname)) {
+window.va = window.va || function () { (window.vaq = window.vaq || []).push(arguments); };
+var vaScript = document.createElement('script'); vaScript.defer = true; vaScript.src = '/_vercel/insights/script.js';
+document.head.appendChild(vaScript);
+}
+</script>
+
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>SPIDER-MAN — Web of the City</title>
+<style>
+:root{
+  --red:#e8202a; --red2:#ff4a4f; --blue:#1f4fd8; --ink:#0a0c12; --paper:#f4f6fb; --gold:#ffc44d;
+  --hudfont:"Avenir Next Condensed","AvenirNextCondensed-Heavy","Helvetica Neue","Arial Narrow",Arial,sans-serif;
+  --titlefont:"Impact","Haettenschweiler","Avenir Next Condensed","Arial Narrow Bold",sans-serif;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{width:100%;height:100%;overflow:hidden;background:#05070c;color:var(--paper);font-family:var(--hudfont);-webkit-font-smoothing:antialiased;user-select:none;-webkit-user-select:none}
+canvas#cv{position:fixed;inset:0;width:100%;height:100%;display:block;outline:none}
+.layer{position:fixed;inset:0;pointer-events:none}
+.hidden{display:none!important}
+
+/* ---------- loading ---------- */
+#load{position:fixed;inset:0;background:radial-gradient(ellipse at 50% 40%,#1a0508 0%,#07080d 60%,#020305 100%);display:flex;flex-direction:column;align-items:center;justify-content:center;z-index:50;transition:opacity .9s ease}
+#load.gone{opacity:0;pointer-events:none}
+#load svg{width:120px;height:120px;filter:drop-shadow(0 0 22px rgba(232,32,42,.55));animation:pulse 1.6s ease-in-out infinite}
+@keyframes pulse{0%,100%{transform:scale(1);opacity:.92}50%{transform:scale(1.06);opacity:1}}
+#load h1{font-family:var(--titlefont);font-weight:400;font-style:italic;letter-spacing:.06em;font-size:54px;margin-top:22px;color:#fff;text-shadow:0 3px 0 #7a0c12,0 0 30px rgba(232,32,42,.5)}
+#load .bar{width:340px;height:5px;background:rgba(255,255,255,.12);margin-top:26px;transform:skewX(-24deg);overflow:hidden}
+#load .bar i{display:block;height:100%;width:0%;background:linear-gradient(90deg,var(--red),#ff7a5c);transition:width .25s ease}
+#load .msg{margin-top:14px;font-size:13px;letter-spacing:.32em;text-transform:uppercase;color:rgba(255,255,255,.55);font-weight:600}
+
+/* ---------- title ---------- */
+#title{position:fixed;inset:0;z-index:40;display:flex;flex-direction:column;justify-content:flex-end;align-items:flex-start;padding:0 0 7.5vh 6vw;background:linear-gradient(90deg,rgba(3,4,8,.78) 0%,rgba(3,4,8,.35) 38%,rgba(3,4,8,0) 62%),linear-gradient(0deg,rgba(3,4,8,.55) 0%,rgba(3,4,8,0) 40%);transition:opacity .7s ease;cursor:pointer}
+#title.gone{opacity:0;pointer-events:none}
+#title .kicker{font-size:15px;letter-spacing:.5em;font-weight:700;color:var(--red2);text-transform:uppercase;margin-bottom:6px;text-shadow:0 1px 8px rgba(0,0,0,.6)}
+#title h1{font-family:var(--titlefont);font-style:italic;font-weight:400;font-size:clamp(64px,10.5vw,168px);line-height:.86;letter-spacing:.01em;color:#fff;text-shadow:0 5px 0 #8f0f16,0 9px 0 #4d070b,0 16px 40px rgba(0,0,0,.65)}
+#title h1 span{color:var(--red)}
+#title h2{font-size:clamp(16px,1.7vw,26px);letter-spacing:.42em;font-weight:600;margin:16px 0 28px 6px;color:rgba(255,255,255,.88);text-transform:uppercase;text-shadow:0 2px 10px rgba(0,0,0,.7)}
+#title .start{display:inline-flex;align-items:center;gap:14px;font-size:20px;font-weight:800;letter-spacing:.24em;text-transform:uppercase;color:#fff;background:var(--red);padding:13px 34px 13px 28px;transform:skewX(-14deg);box-shadow:0 10px 30px rgba(232,32,42,.45);animation:startpulse 1.8s ease-in-out infinite}
+#title .start b{display:inline-block;transform:skewX(14deg)}
+@keyframes startpulse{0%,100%{box-shadow:0 10px 30px rgba(232,32,42,.35)}50%{box-shadow:0 10px 44px rgba(255,70,80,.8)}}
+#title .keys{margin-top:26px;display:grid;grid-template-columns:repeat(2,auto);gap:5px 34px;font-size:13.5px;letter-spacing:.14em;text-transform:uppercase;color:rgba(255,255,255,.78);font-weight:600;text-shadow:0 1px 6px rgba(0,0,0,.8)}
+#title .keys kbd,.kbd{display:inline-block;min-width:24px;text-align:center;font-family:var(--hudfont);font-weight:800;font-size:12px;color:#0b0d14;background:#f2f4f8;border-radius:3px;padding:2px 7px;margin-right:8px;box-shadow:0 2px 0 rgba(0,0,0,.45)}
+#title .foot{position:absolute;right:3vw;bottom:3vh;font-size:11px;letter-spacing:.24em;color:rgba(255,255,255,.4);text-transform:uppercase}
+
+/* ---------- HUD ---------- */
+#hud{z-index:20;opacity:0;transition:opacity .6s ease}
+#hud.on{opacity:1}
+.skew{transform:skewX(-20deg)}
+#vitals{position:absolute;left:34px;top:28px;width:330px}
+#vitals .name{font-size:12px;font-weight:800;letter-spacing:.34em;color:rgba(255,255,255,.85);margin:0 0 6px 8px;text-shadow:0 1px 4px rgba(0,0,0,.8)}
+#hpbar{height:13px;background:rgba(6,8,14,.55);border:1px solid rgba(255,255,255,.28);position:relative;overflow:hidden;transform:skewX(-24deg);box-shadow:0 2px 12px rgba(0,0,0,.5)}
+#hpbar i{position:absolute;left:0;top:0;bottom:0;width:100%;background:linear-gradient(90deg,#d8dde8,#fff);transition:width .18s ease-out}
+#hpbar u{position:absolute;left:0;top:0;bottom:0;width:100%;background:var(--red);transition:width .7s ease-out .25s}
+#hpbar.low i{background:linear-gradient(90deg,#ff6a5c,#ff3b3b)}
+#focus{display:flex;gap:5px;margin-top:6px;margin-left:-4px;transform:skewX(-24deg);width:62%}
+#focus div{flex:1;height:7px;background:rgba(6,8,14,.55);border:1px solid rgba(120,190,255,.35);position:relative;overflow:hidden}
+#focus div i{position:absolute;inset:0;width:0%;background:linear-gradient(90deg,#3aa0ff,#9fe0ff);box-shadow:0 0 8px #49b3ff}
+#focus div.full i{background:linear-gradient(90deg,#7fd0ff,#fff)}
+#tracker{position:absolute;right:34px;top:26px;text-align:right;text-shadow:0 1px 5px rgba(0,0,0,.85)}
+#tracker .district{font-size:12px;letter-spacing:.4em;font-weight:700;color:rgba(255,255,255,.7)}
+#tracker .obj{font-size:22px;font-weight:800;letter-spacing:.08em;font-style:italic;margin-top:4px}
+#tracker .obj b{color:var(--red2)}
+#tracker .sub{font-size:13px;letter-spacing:.2em;font-weight:700;color:rgba(255,255,255,.72);margin-top:3px}
+#tracker .sub b{color:var(--gold)}
+#mini{position:absolute;left:30px;bottom:30px;width:196px;height:196px;border-radius:50%;overflow:hidden;border:2px solid rgba(255,255,255,.55);box-shadow:0 6px 24px rgba(0,0,0,.55),inset 0 0 30px rgba(0,0,0,.6);background:#0c1018}
+#mini canvas{width:100%;height:100%;display:block}
+#mini:after{content:"N";position:absolute;top:3px;left:50%;transform:translateX(-50%);font-size:11px;font-weight:900;color:#fff;text-shadow:0 0 4px #000}
+#speedo{position:absolute;left:240px;bottom:34px;font-style:italic;font-weight:800;text-shadow:0 1px 6px rgba(0,0,0,.85)}
+#speedo .v{font-size:34px;line-height:1}
+#speedo .u{font-size:11px;letter-spacing:.3em;color:rgba(255,255,255,.7);margin-left:4px}
+#speedo .alt{font-size:12px;letter-spacing:.24em;color:rgba(255,255,255,.62);margin-top:2px;font-style:normal}
+#prompts{position:absolute;right:34px;bottom:30px;text-align:right;font-size:13px;letter-spacing:.16em;font-weight:700;text-transform:uppercase;color:rgba(255,255,255,.86);text-shadow:0 1px 5px rgba(0,0,0,.9);line-height:2}
+#prompts .kbd{margin:0 0 0 10px}
+#prompts div{opacity:.9}
+#prompts div.dim{opacity:.35}
+#hint{position:absolute;left:50%;bottom:15vh;transform:translateX(-50%);font-size:19px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;background:rgba(5,7,12,.62);padding:11px 26px;border-left:4px solid var(--red);opacity:0;transition:opacity .35s ease;white-space:nowrap;text-shadow:0 1px 3px #000}
+#hint.on{opacity:1}
+#hint .kbd{font-size:14px;margin:0 8px;padding:3px 9px}
+#banner{position:absolute;left:50%;top:11vh;transform:translate(-50%,-30px);opacity:0;transition:opacity .4s ease,transform .4s cubic-bezier(.2,1.4,.4,1);text-align:center}
+#banner.on{opacity:1;transform:translate(-50%,0)}
+#banner .t1{display:inline-block;font-size:13px;font-weight:800;letter-spacing:.46em;padding:5px 18px 5px 22px;background:var(--red);color:#fff;transform:skewX(-20deg)}
+#banner .t1 b{display:inline-block;transform:skewX(20deg)}
+#banner.good .t1{background:#1e9e57}
+#banner.info .t1{background:#2459d6}
+#banner .t2{font-family:var(--titlefont);font-style:italic;font-size:46px;letter-spacing:.04em;margin-top:6px;text-shadow:0 3px 0 rgba(0,0,0,.55),0 0 26px rgba(0,0,0,.6)}
+#banner .t3{font-size:14px;letter-spacing:.3em;font-weight:700;color:rgba(255,255,255,.85);margin-top:2px;text-shadow:0 1px 5px #000}
+#combo{position:absolute;right:6vw;top:34vh;text-align:right;opacity:0;transform:scale(.8);transition:opacity .25s ease,transform .2s cubic-bezier(.2,1.6,.4,1);font-style:italic}
+#combo.on{opacity:1;transform:scale(1)}
+#combo .n{font-family:var(--titlefont);font-size:92px;line-height:.8;color:#fff;text-shadow:0 4px 0 var(--red),0 0 30px rgba(232,32,42,.65)}
+#combo .l{font-size:16px;font-weight:800;letter-spacing:.4em;margin-top:8px}
+#combo .s{font-size:20px;font-weight:800;letter-spacing:.18em;color:var(--gold);margin-top:2px;min-height:24px;text-shadow:0 2px 8px rgba(0,0,0,.7)}
+#combo.bump .n{animation:bump .18s ease-out}
+@keyframes bump{0%{transform:scale(1.45)}100%{transform:scale(1)}}
+#markers .mk{position:absolute;left:0;top:0;will-change:transform;text-align:center;font-weight:800;font-size:12px;letter-spacing:.12em;text-shadow:0 1px 4px #000;transition:opacity .2s}
+#markers .mk .d{width:26px;height:26px;margin:0 auto 4px;transform:rotate(45deg);border:2px solid #fff;background:var(--red);box-shadow:0 0 16px rgba(232,32,42,.85);display:flex;align-items:center;justify-content:center}
+#markers .mk .d span{transform:rotate(-45deg);font-size:15px;font-style:normal}
+#markers .mk.tok .d{background:var(--gold);box-shadow:0 0 14px rgba(255,196,77,.9);width:16px;height:16px}
+#markers .mk.boss .d{background:#9b2cff;box-shadow:0 0 18px rgba(155,44,255,.9)}
+#markers .mk.zip{font-size:0}
+#markers .mk.zip .d{width:18px;height:18px;border-radius:50%;transform:none;background:transparent;border:2px solid #fff;box-shadow:0 0 10px rgba(255,255,255,.8),inset 0 0 6px rgba(255,255,255,.7)}
+#markers .mk.zip .d:after{content:"";width:4px;height:4px;border-radius:50%;background:#fff}
+#markers .mk.tgt .d{width:34px;height:34px;border-radius:50%;transform:none;background:transparent;border:2px solid rgba(255,80,80,.95);box-shadow:0 0 10px rgba(255,60,60,.7)}
+#ehp{position:absolute;left:0;top:0}
+#ehp .eb{position:absolute;width:64px;height:6px;margin-left:-32px;background:rgba(0,0,0,.6);border:1px solid rgba(255,255,255,.5);transform:skewX(-20deg)}
+#ehp .eb i{display:block;height:100%;background:var(--red2)}
+#ehp .eb.web i{background:#e8eefc}
+#sense{position:absolute;left:50%;top:50%;width:150px;height:60px;margin:-150px 0 0 -75px;opacity:0;transition:opacity .1s}
+#sense.on{opacity:1}
+#dmg{background:radial-gradient(ellipse at center,rgba(255,0,0,0) 45%,rgba(200,0,10,.55) 100%);opacity:0;transition:opacity .25s ease;z-index:19}
+#flash{background:#fff;opacity:0;z-index:21}
+#fade{background:#000;opacity:0;transition:opacity .5s ease;z-index:30}
+#fade.on{opacity:1}
+#boss{position:absolute;left:50%;bottom:9vh;transform:translateX(-50%);width:min(620px,60vw);text-align:center;opacity:0;transition:opacity .4s}
+#boss.on{opacity:1}
+#boss .bn{font-family:var(--titlefont);font-style:italic;font-size:26px;letter-spacing:.12em;text-shadow:0 2px 0 #000}
+#boss .bb{height:12px;margin-top:6px;background:rgba(6,8,14,.6);border:1px solid rgba(255,255,255,.4);transform:skewX(-24deg);overflow:hidden}
+#boss .bb i{display:block;height:100%;width:100%;background:linear-gradient(90deg,#a02cff,#ff4a8a);transition:width .2s}
+#toast{position:absolute;left:34px;top:110px;font-size:14px;font-weight:700;letter-spacing:.18em;text-transform:uppercase;text-shadow:0 1px 5px #000}
+#toast div{background:rgba(5,7,12,.6);border-left:3px solid var(--gold);padding:6px 14px;margin-bottom:6px;animation:toastin .35s ease-out}
+@keyframes toastin{from{opacity:0;transform:translateX(-20px)}to{opacity:1;transform:none}}
+#dbg{position:fixed;left:8px;top:8px;z-index:60;font:11px/1.35 Menlo,monospace;color:#b8ffb8;background:rgba(0,0,0,.55);padding:6px 9px;white-space:pre;display:none}
+
+/* ---------- pause ---------- */
+#pause{position:fixed;inset:0;z-index:45;background:rgba(4,6,11,.78);backdrop-filter:blur(7px);-webkit-backdrop-filter:blur(7px);display:flex;align-items:center;justify-content:center;pointer-events:auto}
+#pause .panel{width:min(880px,92vw);padding:34px 44px 30px;border-left:6px solid var(--red);background:linear-gradient(135deg,rgba(20,24,36,.92),rgba(9,11,18,.92))}
+#pause h2{font-family:var(--titlefont);font-style:italic;font-weight:400;font-size:52px;letter-spacing:.05em}
+#pause h3{font-size:13px;letter-spacing:.4em;color:var(--red2);margin:20px 0 10px}
+#pause .grid{display:grid;grid-template-columns:1fr 1fr;gap:6px 40px;font-size:14px;letter-spacing:.1em;font-weight:600;text-transform:uppercase;color:rgba(255,255,255,.85)}
+#pause .row{display:flex;gap:10px;flex-wrap:wrap;margin-top:6px}
+#pause button{font-family:var(--hudfont);font-weight:800;font-size:14px;letter-spacing:.2em;text-transform:uppercase;color:#fff;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.3);padding:10px 20px;cursor:pointer;transform:skewX(-14deg)}
+#pause button:hover{background:rgba(255,255,255,.2)}
+#pause button.sel{background:var(--red);border-color:var(--red)}
+#pause button.big{background:var(--red);border-color:var(--red);font-size:17px;padding:13px 34px;margin-top:22px}
+#photo{position:absolute;left:50%;bottom:24px;transform:translateX(-50%);font-size:13px;letter-spacing:.2em;font-weight:700;text-transform:uppercase;background:rgba(5,7,12,.6);padding:9px 20px;text-shadow:0 1px 3px #000}
+</style>
+</head>
+<body>
+<canvas id="cv" tabindex="0"></canvas>
+
+<div id="dmg" class="layer"></div>
+<div id="flash" class="layer"></div>
+
+<div id="hud" class="layer">
+  <div id="vitals">
+    <div class="name">SPIDER-MAN</div>
+    <div id="hpbar"><u></u><i></i></div>
+    <div id="focus"><div><i></i></div><div><i></i></div><div><i></i></div></div>
+  </div>
+  <div id="tracker">
+    <div class="district" id="district">MIDTOWN</div>
+    <div class="obj" id="obj">CRIMES STOPPED <b>0</b>/8</div>
+    <div class="sub" id="sub">TOKENS <b>0</b>/24</div>
+  </div>
+  <div id="toast"></div>
+  <div id="mini"><canvas id="minicv" width="392" height="392"></canvas></div>
+  <div id="speedo"><span class="v" id="spd">0</span><span class="u">MPH</span><div class="alt" id="alt">ALT 0 M</div></div>
+  <div id="prompts"></div>
+  <div id="hint"></div>
+  <div id="banner"><div class="t1"><b id="b1"></b></div><div class="t2" id="b2"></div><div class="t3" id="b3"></div></div>
+  <div id="combo"><div class="n" id="cn">0</div><div class="l">HIT COMBO</div><div class="s" id="cs"></div></div>
+  <div id="boss"><div class="bn" id="bossn"></div><div class="bb"><i id="bossb"></i></div></div>
+  <div id="markers"></div>
+  <div id="ehp"></div>
+  <svg id="sense" viewBox="0 0 150 60"><g fill="none" stroke="#fff" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"><path d="M8 40 l7-12 7 12 7-12"/><path d="M38 24 l6-13 7 13 6-13"/><path d="M66 18 l6-14 6 14 6-14"/><path d="M94 24 l6-13 7 13 6-13"/><path d="M122 40 l7-12 7 12 7-12"/></g></svg>
+</div>
+
+<div id="photo" class="hidden">PHOTO MODE — DRAG: ORBIT · SCROLL: ZOOM · WASD/QE: FLY · T: TIME OF DAY · H: HIDE UI · P/ESC: EXIT</div>
+<div id="fade" class="layer"></div>
+
+<div id="pause" class="hidden">
+  <div class="panel">
+    <h2>PAUSED</h2>
+    <h3>CONTROLS</h3>
+    <div class="grid">
+      <div><span class="kbd">W A S D</span>Move</div><div><span class="kbd">MOUSE</span>Camera (arrows also work)</div>
+      <div><span class="kbd">SHIFT</span>/<span class="kbd">RMB</span> Hold: Web-swing · Sprint · Wall-run</div><div><span class="kbd">SPACE</span>Jump · Swing-launch · Air web-zip</div>
+      <div><span class="kbd">LMB</span>/<span class="kbd">J</span> Attack (hold: launcher)</div><div><span class="kbd">E</span>/<span class="kbd">K</span> Web shooters</div>
+      <div><span class="kbd">Q</span>/<span class="kbd">CTRL</span> Dodge (on spider-sense = perfect)</div><div><span class="kbd">F</span>Zip to point · Finisher (focus full)</div>
+      <div><span class="kbd">C</span>Dive</div><div><span class="kbd">H</span>Heal (uses focus)</div>
+      <div><span class="kbd">T</span>Time of day</div><div><span class="kbd">P</span>Photo mode · <span class="kbd">M</span>Sound</div>
+    </div>
+    <h3>GRAPHICS</h3>
+    <div class="row" id="qrow"><button data-q="0">Performance</button><button data-q="1">Balanced</button><button data-q="2">Cinematic</button></div>
+    <h3>TIME OF DAY</h3>
+    <div class="row" id="trow"><button data-t="0">Golden Hour</button><button data-t="1">Night</button><button data-t="2">Midday</button></div>
+    <button class="big" id="resume">RESUME</button>
+  </div>
+</div>
+
+<div id="title" class="hidden">
+  <div class="kicker">AN OPEN-CITY WEB-SWINGING ADVENTURE</div>
+  <h1>SPIDER<span>-</span>MAN</h1>
+  <h2>WEB OF THE CITY</h2>
+  <div class="start"><b>▶&nbsp; CLICK TO SWING</b></div>
+  <div class="keys">
+    <div><kbd>SHIFT</kbd>HOLD TO WEB-SWING</div><div><kbd>LMB</kbd>ATTACK</div>
+    <div><kbd>SPACE</kbd>JUMP / LAUNCH</div><div><kbd>E</kbd>WEB SHOOTERS</div>
+    <div><kbd>W A S D</kbd>MOVE</div><div><kbd>Q</kbd>DODGE</div>
+    <div><kbd>F</kbd>ZIP TO POINT</div><div><kbd>ESC</kbd>ALL CONTROLS</div>
+  </div>
+  <div class="foot">FAN-MADE TRIBUTE · BUILT PROCEDURALLY · NO ASSETS LOADED</div>
+</div>
+
+<div id="load">
+  <svg viewBox="-60 -60 120 120"><g fill="#e8202a"><ellipse cx="0" cy="-9" rx="7.5" ry="9"/><path d="M0 0 C9 4 11 22 0 40 C-11 22 -9 4 0 0Z"/></g><g fill="none" stroke="#e8202a" stroke-width="4.2" stroke-linecap="round" stroke-linejoin="round"><path d="M-6 -10 L-26 -24 L-30 -50"/><path d="M6 -10 L26 -24 L30 -50"/><path d="M-7 -4 L-36 -10 L-48 -30"/><path d="M7 -4 L36 -10 L48 -30"/><path d="M-7 4 L-36 12 L-46 38"/><path d="M7 4 L36 12 L46 38"/><path d="M-5 10 L-24 28 L-26 54"/><path d="M5 10 L24 28 L26 54"/></g></svg>
+  <h1>SPIDER-MAN</h1>
+  <div class="bar"><i id="loadbar"></i></div>
+  <div class="msg" id="loadmsg">SPINNING UP THE CITY</div>
+</div>
+<div id="dbg"></div>
+<script src="vendor/three.js"></script>
+<script src="src/core.js"></script>
+<script src="src/gfx.js"></script>
+<script src="src/sky.js"></script>
+<script src="src/citygen.js"></script>
+<script src="src/facade.js"></script>
+<script src="src/citymesh.js"></script>
+<script src="src/ground.js"></script>
+<script src="src/props.js"></script>
+<script src="src/traffic.js"></script>
+<script src="src/peds.js"></script>
+<script src="src/body.js"></script>
+<script src="src/suit.js"></script>
+<script src="src/anim.js"></script>
+<script src="src/hero.js"></script>
+<script src="src/player.js"></script>
+<script src="src/camera.js"></script>
+<script src="src/fx.js"></script>
+<script src="src/enemies.js"></script>
+<script src="src/combat.js"></script>
+<script src="src/crimes.js"></script>
+<script src="src/hud.js"></script>
+<script src="src/flow.js"></script>
+<script src="src/tests.js"></script>
+<script src="src/main.js"></script>
+</body>
+</html>
